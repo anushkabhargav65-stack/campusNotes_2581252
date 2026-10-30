@@ -12,3 +12,8 @@ Anushka Bhargav
 
 ## Enrollment Number
 2581252
+## Project Features
+
+- Organize campus notes.
+- Access study materials easily.
+- Simple and user-friendly interface.
