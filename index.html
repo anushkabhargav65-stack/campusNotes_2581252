@@ -1,11 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusNotes</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Welcome to CampusNotes</h1>
-    <p>Organize your campus notes easily.</p>
+
+    <header>
+        <h1>Welcome to CampusNotes</h1>
+        <p>Organize your campus notes easily.</p>
+    </header>
+
+    <main>
+        <section class="notes-section">
+            <h2>Recently Added Notes</h2>
+            <p>Explore and download study materials shared by students.</p>
+
+            <input type="text" id="searchInput" placeholder="Search notes by title or subject..."
+                onkeyup="searchNotes()">
+
+            <div class="notes-container" id="notesContainer">
+
+                <div class="note-card">
+                    <h3>Engineering Mathematics</h3>
+                    <p>Subject: Mathematics</p>
+                    <p>Chapter: Differential Equations</p>
+                    <button onclick="downloadNote('Engineering Mathematics', 'Differential Equations')">
+                        Download Notes
+                    </button>
+                </div>
+
+                <div class="note-card">
+                    <h3>Basic Physics</h3>
+                    <p>Subject: Physics</p>
+                    <p>Chapter: Laws of Motion</p>
+                    <button onclick="downloadNote('Basic Physics', 'Laws of Motion')">
+                        Download Notes
+                    </button>
+                </div>
+
+                <div class="note-card">
+                    <h3>Programming in C++</h3>
+                    <p>Subject: Programming</p>
+                    <p>Chapter: Object Oriented Programming</p>
+                    <button onclick="downloadNote('Programming in C++', 'Object Oriented Programming')">
+                        Download Notes
+                    </button>
+                </div>
+
+            </div>
+
+            <p id="noResults" style="display:none;">
+                No matching notes found.
+            </p>
+        </section>
+    </main>
+
+    <script>
+        function searchNotes() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let cards = document.querySelectorAll(".note-card");
+            let found = 0;
+
+            cards.forEach(function (card) {
+                let content = card.innerText.toLowerCase();
+
+                if (content.includes(input)) {
+                    card.style.display = "block";
+                    found++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            document.getElementById("noResults").style.display =
+                found === 0 ? "block" : "none";
+        }
+
+        function downloadNote(title, chapter) {
+            let content =
+                "CampusNotes\n\n" +
+                "Subject: " + title + "\n" +
+                "Chapter: " + chapter + "\n\n" +
+                "Sample study material for students.";
+
+            let file = new Blob([content], { type: "text/plain" });
+            let link = document.createElement("a");
+
+            link.href = URL.createObjectURL(file);
+            link.download = title.replaceAll(" ", "_") + ".txt";
+            link.click();
+
+            URL.revokeObjectURL(link.href);
+        }
+    </script>
+
 </body>
+
 </html>
