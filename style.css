@@ -6,6 +6,11 @@ body {
 }
 
 h1 {
-    color: #eb252f;
+    color: #2525eb;
 }
 
+* Updating through the cloned repo for VCS Assignment */
+h1:hover {
+    color: #253feb;
+    transition: color 0.3s ease;
+}
